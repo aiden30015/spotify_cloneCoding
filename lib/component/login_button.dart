@@ -8,14 +8,21 @@ class LoginButton extends StatelessWidget {
   final bool signup;
   final SvgPicture? icon;
 
-  const LoginButton({super.key, required this.text, required this.onTap, required this.signup,this.icon});
+  const LoginButton({
+    super.key, 
+    required this.text, 
+    required this.onTap, 
+    required this.signup,
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 337,
+        width: double.infinity,
+        constraints: const BoxConstraints(maxWidth: 337),
         height: 49,
         decoration: BoxDecoration(
           color: signup ? Colors.green : null,
@@ -25,8 +32,14 @@ class LoginButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (signup)
-              icon ?? SizedBox.shrink(),
+            if (icon != null) 
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: SizedBox(
+                  height: 24,
+                  child: icon!,
+                ),
+              ),
             Text(
               text,
               style: TextStyle(
