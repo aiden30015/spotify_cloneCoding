@@ -37,6 +37,9 @@ dependencies:
   
   # 스포티파이 인증을 위한 패키지
   url_launcher: ^6.2.5
+  hooks_riverpod: ^2.6.1
+  flutter_hooks: ^0.21.2
+  flutter_svg: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +51,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  custom_lint: ^0.7.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
