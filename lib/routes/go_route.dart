@@ -1,13 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spotify_clone/app.dart';
-import 'package:spotify_clone/presentations/login/screens/login_screen.dart';
 import 'package:spotify_clone/presentations/signup/screens/signup_screen.dart';
 
 // 라우트 이름 상수
 class AppRoutes {
   static const String splash = '/';
-  static const String login = '/login';
   static const String signup = '/signup';
   static const String home = '/home';
   static const String search = '/search';
