@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         scaffoldBackgroundColor: Colors.black,
+        fontFamily: 'Gotham-Bold'
       ),
       debugShowCheckedModeBanner: false,
     );
