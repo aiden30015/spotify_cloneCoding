@@ -22,7 +22,7 @@ class AuthButton extends StatelessWidget {
       child: Container(
         width: double.infinity,
         constraints: const BoxConstraints(maxWidth: 337),
-        height: 49,
+        height: 47,
         decoration: BoxDecoration(
           color: signup ? Colors.green : null,
           borderRadius: BorderRadius.circular(45),
@@ -35,7 +35,7 @@ class AuthButton extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 24.0),
+                  padding: const EdgeInsets.only(left: 20),
                   child: SizedBox(
                     height: 24,
                     child: icon!,
