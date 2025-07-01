@@ -37,13 +37,20 @@ dependencies:
   
   # 스포티파이 인증을 위한 패키지
   url_launcher: ^6.2.5
+  flutter_web_auth: ^0.6.0
+
+  # 상태관리 및 생명주기 패키지
   hooks_riverpod: ^2.6.1
   flutter_hooks: ^0.21.2
+  # svg 파일 사용을 위한 패키지
   flutter_svg: ^2.2.0
+  # 라우터 관리를 위한 패키지
   go_router: ^15.2.4
-  flutter_web_auth: ^0.6.0
+  # http 호출을 위한 패키지
   dio: ^5.8.0+1
+  # 모델 생성 패키지
   json_serializable: ^6.9.5
+  freezed: ^3.0.6
 
 dev_dependencies:
   flutter_test:
