@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:spotify_clone/component/auth_button.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spotify_clone/routes/go_route.dart';
+import '../../../routers.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
@@ -60,7 +60,9 @@ class SignupScreen extends StatelessWidget {
               Spacer(),
               AuthButton(
                 text: '이메일로 계속하기',
-                onTap: () {},
+                onTap: () {
+                  context.go(AppRoutes.emailSignup);
+                },
                 signup: true,
                 icon: SvgPicture.asset('assets/svg/mail.svg',
                 ),
