@@ -1,13 +1,13 @@
 import 'package:go_router/go_router.dart';
 import 'package:spotify_clone/app.dart';
-import 'package:spotify_clone/presentations/signup/screens/email_signup_screen.dart';
-import 'package:spotify_clone/presentations/signup/screens/signup_screen.dart';
+import 'package:spotify_clone/presentations/login/screens/login_screen.dart';
 
 // 라우트 이름 상수
 class AppRoutes {
   static const String splash = '/';
   static const String signup = '/signup';
   static const String emailSignup = '/emailSignup';
+  static const String login = '/login';
 }
 
 // 메인 라우터 설정
@@ -20,18 +20,12 @@ final router = GoRouter(
       name: 'splash',
       builder: (context, state) => const SplashScreen(),
     ),
-    
-    
-    // 회원가입 화면
+  
+    //로그인 화면
     GoRoute(
-      path: AppRoutes.signup,
-      name: 'signup',
-      builder: (context, state) => const SignupScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.emailSignup,
-      name: 'emailSignup',
-      builder: (context, state) => const EmailSignupScreen(),
-    )
+      path: AppRoutes.login,
+      name: 'login',
+      builder: (context, state) => LoginScreen(),
+      )
   ],
 );

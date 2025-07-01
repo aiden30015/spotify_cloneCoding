@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:spotify_clone/component/login_button.dart';
+import 'package:spotify_clone/component/auth_button.dart';
+import 'routers.dart';
 
 class SplashScreen extends HookConsumerWidget {
   const SplashScreen({super.key});
@@ -46,9 +48,10 @@ class SplashScreen extends HookConsumerWidget {
                   ),
                 ),
                 const Spacer(),
-                LoginButton(text: '무료 가입', onTap: () {}, signup: true),
                 const SizedBox(height: 10),
-                LoginButton(text: '로그인', onTap: () {}, signup: false),
+                AuthButton(text: '로그인', onTap: () {
+                  context.go(AppRoutes.login);
+                }, signup: false),
               ],
             ),
           ),
