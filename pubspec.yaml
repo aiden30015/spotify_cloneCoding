@@ -51,6 +51,7 @@ dependencies:
   # 모델 생성 패키지
   json_serializable: ^6.9.5
   freezed: ^3.0.6
+  freezed_annotation: ^3.0.0
 
 dev_dependencies:
   flutter_test:
