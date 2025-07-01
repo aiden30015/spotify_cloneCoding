@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart' hide Options;
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 
 class AuthRepository {
   final _dio = Dio();
-  final clientId = '054ebc7e0be84e8fa2d83d2a3269aaa5';
-  final clientSecret = '234bb9ff121e474ebbd0740f7b099236';
-  final redirectUri = 'spotify-clone://callback';
+  final _storage = FlutterSecureStorage();
+  final clientId = dotenv.env['SPOTIFY_CLIENT_ID']!;
+  final clientSecret = dotenv.env['SPOTIFY_CLIENT_SECRET']!;
+  final redirectUri = dotenv.env['REDIRECT_URI']!;
 
   Future<Map<String, dynamic>?> login() async {
     final scopes = [
@@ -43,11 +46,29 @@ class AuthRepository {
           'redirect_uri': redirectUri,
         },
       );
+      final data = response.data;
 
-      return response.data;
+      await _storage.write(key: 'accessToken', value: data['access_token']);
+      await _storage.write(key: 'refreshToken', value: data['refresh_token']);
+
+      return data;
     } catch (e) {
       print("Login error: $e");
       return null;
     }
+  }
+
+  Future<Map<String, String?>> loadSavedTokens() async {
+    final accessToken = await _storage.read(key: 'accessToken');
+    final refreshToken = await _storage.read(key: 'refreshToken');
+    return {
+      'accessToken': accessToken,
+      'refreshToken': refreshToken,
+    };
+  }
+
+  Future<void> clearTokens() async {
+    await _storage.delete(key: 'accessToken');
+    await _storage.delete(key: 'refreshToken');
   }
 }
