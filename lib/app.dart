@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:spotify_clone/component/auth_button.dart';
-import 'routers.dart';
+import 'package:spotify_clone/presentations/login/login_view_model.dart';
 
 class SplashScreen extends HookConsumerWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    final authState = ref.watch(authViewModelProvider);
+    final authVM = ref.read(authViewModelProvider.notifier);
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -48,10 +51,9 @@ class SplashScreen extends HookConsumerWidget {
                   ),
                 ),
                 const Spacer(),
-                const SizedBox(height: 10),
-                AuthButton(text: '로그인', onTap: () {
-                  context.go(AppRoutes.login);
-                }, signup: false),
+                AuthButton(text: '로그인', 
+                onTap: () async => await authVM.login(),
+                signup: false),
               ],
             ),
           ),

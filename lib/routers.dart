@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
 import 'package:spotify_clone/app.dart';
-import 'package:spotify_clone/presentations/login/screens/login_screen.dart';
 
 // 라우트 이름 상수
 class AppRoutes {
@@ -21,11 +20,5 @@ final router = GoRouter(
       builder: (context, state) => const SplashScreen(),
     ),
   
-    //로그인 화면
-    GoRoute(
-      path: AppRoutes.login,
-      name: 'login',
-      builder: (context, state) => LoginScreen(),
-      )
   ],
 );
