@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:spotify_clone/data/repository/auth_repository.dart';
-import 'package:spotify_clone/model/auth_state.dart';
+import 'package:spotify_clone/data/repositories/auth_repository.dart';
+import 'package:spotify_clone/data/models/auth_state.dart';
 
 final authRepositoryProvider = Provider((ref) => AuthRepository());
 

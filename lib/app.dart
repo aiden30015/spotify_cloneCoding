@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:spotify_clone/component/auth_button.dart';
-import 'package:spotify_clone/presentations/login/login_view_model.dart';
+import 'package:spotify_clone/shared/auth_button.dart';
+import 'package:spotify_clone/presentation/viewmodels/login_view_model.dart';
 
 class SplashScreen extends HookConsumerWidget {
   const SplashScreen({super.key});
@@ -10,7 +10,6 @@ class SplashScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final authState = ref.watch(authViewModelProvider);
     final authVM = ref.read(authViewModelProvider.notifier);
 
     return Scaffold(
