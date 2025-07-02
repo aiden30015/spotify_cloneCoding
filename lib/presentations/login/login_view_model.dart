@@ -12,7 +12,20 @@ final authViewModelProvider =
 class AuthViewModel extends StateNotifier<AuthState> {
   final AuthRepository _authRepository;
 
-  AuthViewModel(this._authRepository) : super(const AuthState());
+  AuthViewModel(this._authRepository) : super(const AuthState()) {
+    _loadSavedTokens();
+  }
+
+  Future<void> _loadSavedTokens() async {
+    final tokens = await _authRepository.loadSavedTokens();
+    if (tokens['accessToken'] != null) {
+      state = state.copyWith(
+        accessToken: tokens['accessToken'],
+        refreshToken: tokens['refreshToken'],
+        isLoggedIn: true,
+      );
+    }
+  }
 
   Future<void> login() async {
     final tokenData = await _authRepository.login();
@@ -25,7 +38,8 @@ class AuthViewModel extends StateNotifier<AuthState> {
     }
   }
 
-  void logout() {
+  void logout() async{
+    await _authRepository.clearTokens(); 
     state = const AuthState();
   }
 }
