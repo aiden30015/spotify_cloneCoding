@@ -1,20 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'routers.dart';
-
+import 'package:go_router/go_router.dart';
+import 'package:spotify_clone/app.dart';
+import 'package:spotify_clone/presentations/home/screen/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
-  runApp(const MyApp());
+  
+  // 토큰 확인
+  const storage = FlutterSecureStorage();
+  final accessToken = await storage.read(key: 'accessToken');
+  
+  runApp(MyApp(initialToken: accessToken));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String? initialToken;
+  
+  const MyApp({super.key, this.initialToken});
 
   @override
   Widget build(BuildContext context) {
+    // 토큰에 따라 초기 라우트 결정
+    final router = GoRouter(
+      initialLocation: initialToken != null ? '/home' : '/',
+      routes: [
+        // 스플래시 화면
+        GoRoute(
+          path: '/',
+          name: 'splash',
+          builder: (context, state) => const SplashScreen(),
+        ),
+        // 홈 화면
+        GoRoute(
+          path: '/home',
+          name: 'home',
+          builder: (context, state) => HomeScreen(),
+        ),
+      ],
+    );
+
     return ProviderScope(
       child: MaterialApp.router(
         routerConfig: router,

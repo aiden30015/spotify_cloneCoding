@@ -58,5 +58,7 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>이 앱은 개발 및 디버깅을 위해 로컬 네트워크를 사용합니다.</string>
 </dict>
 </plist>
