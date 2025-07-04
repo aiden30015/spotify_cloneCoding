@@ -1,8 +1,8 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:spotify_clone/data/repositories/auth_repository.dart';
-import 'package:spotify_clone/data/models/auth_state.dart';
+import 'package:spotify_clone/data/repositories/auth_repository_impl.dart';
+import 'package:spotify_clone/domain/entities/auth_state.dart';
 
-final authRepositoryProvider = Provider((ref) => AuthRepository());
+final authRepositoryProvider = Provider((ref) => AuthRepositoryImpl());
 
 final authViewModelProvider =
     StateNotifierProvider<AuthViewModel, AuthState>((ref) {
@@ -10,7 +10,7 @@ final authViewModelProvider =
 });
 
 class AuthViewModel extends StateNotifier<AuthState> {
-  final AuthRepository _authRepository;
+  final AuthRepositoryImpl _authRepository;
 
   AuthViewModel(this._authRepository) : super(const AuthState()) {
     _loadSavedTokens();
