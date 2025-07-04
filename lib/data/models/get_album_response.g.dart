@@ -33,7 +33,7 @@ Map<String, dynamic> _$GetAlbumResponseToJson(GetAlbumResponse instance) =>
 
 AlbumItem _$AlbumItemFromJson(Map<String, dynamic> json) => AlbumItem(
   addedAt: json['added_at'] as String,
-  album: Album.fromJson(json['album'] as Map<String, dynamic>),
+  album: AlbumData.fromJson(json['album'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$AlbumItemToJson(AlbumItem instance) => <String, dynamic>{
@@ -41,7 +41,7 @@ Map<String, dynamic> _$AlbumItemToJson(AlbumItem instance) => <String, dynamic>{
   'album': instance.album,
 };
 
-Album _$AlbumFromJson(Map<String, dynamic> json) => Album(
+AlbumData _$AlbumDataFromJson(Map<String, dynamic> json) => AlbumData(
   albumType: json['album_type'] as String,
   artists:
       (json['artists'] as List<dynamic>)
@@ -64,9 +64,11 @@ Album _$AlbumFromJson(Map<String, dynamic> json) => Album(
   totalTracks: (json['total_tracks'] as num).toInt(),
   type: json['type'] as String,
   uri: json['uri'] as String,
+  label: json['label'] as String,
+  popularity: (json['popularity'] as num).toInt(),
 );
 
-Map<String, dynamic> _$AlbumToJson(Album instance) => <String, dynamic>{
+Map<String, dynamic> _$AlbumDataToJson(AlbumData instance) => <String, dynamic>{
   'album_type': instance.albumType,
   'artists': instance.artists,
   'available_markets': instance.availableMarkets,
@@ -78,6 +80,8 @@ Map<String, dynamic> _$AlbumToJson(Album instance) => <String, dynamic>{
   'total_tracks': instance.totalTracks,
   'type': instance.type,
   'uri': instance.uri,
+  'label': instance.label,
+  'popularity': instance.popularity,
 };
 
 Artist _$ArtistFromJson(Map<String, dynamic> json) => Artist(
