@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:spotify_clone/shared/auth_button.dart';
 import 'package:spotify_clone/presentation/viewmodels/login_view_model.dart';
 
@@ -9,8 +10,15 @@ class SplashScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
+    final authState = ref.watch(authViewModelProvider);
     final authVM = ref.read(authViewModelProvider.notifier);
+
+    // 로그인 성공 시 홈 화면으로 이동
+    if (authState.isLoggedIn) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.go('/home');
+      });
+    }
 
     return Scaffold(
       body: Container(

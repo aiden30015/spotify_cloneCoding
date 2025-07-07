@@ -5,16 +5,25 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spotify_clone/app.dart';
 import 'package:spotify_clone/presentation/pages/home_screen.dart';
+import 'package:spotify_clone/data/repositories/auth_repository_impl.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
   
-  // 토큰 확인
+  // 토큰 유효성 검증
   const storage = FlutterSecureStorage();
   final accessToken = await storage.read(key: 'accessToken');
   
-  runApp(MyApp(initialToken: accessToken));
+  bool isValid = false;
+  if (accessToken != null) {
+    // 토큰이 있으면 유효성 검증
+    final authRepo = AuthRepositoryImpl();
+    isValid = await authRepo.isTokenValid();
+    print('Token validation result: $isValid');
+  }
+  
+  runApp(MyApp(initialToken: isValid ? accessToken : null));
 }
 
 class MyApp extends StatelessWidget {

@@ -3,5 +3,7 @@ abstract class AuthRepository {
 
   Future<Map<String, String?>> loadSavedTokens();
 
-  Future<void> clearTokens(); 
+  Future<void> clearTokens();
+
+  Future<bool> isTokenValid();
 }

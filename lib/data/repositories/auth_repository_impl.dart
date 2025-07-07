@@ -1,12 +1,12 @@
 import 'dart:convert';
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' hide Options;
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:spotify_clone/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl extends AuthRepository{
-  final _dio = Dio();
+  final dio.Dio _dio = dio.Dio();
   final _storage = FlutterSecureStorage();
   final clientId = dotenv.env['SPOTIFY_CLIENT_ID']!;
   final clientSecret = dotenv.env['SPOTIFY_CLIENT_SECRET']!;
@@ -53,7 +53,7 @@ class AuthRepositoryImpl extends AuthRepository{
 
       final response = await _dio.post(
         'https://accounts.spotify.com/api/token',
-        options: Options(
+        options: dio.Options(
           headers: {
             'Authorization': 'Basic ${base64Encode(utf8.encode('$clientId:$clientSecret'))}',
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -92,5 +92,24 @@ class AuthRepositoryImpl extends AuthRepository{
   Future<void> clearTokens() async {
     await _storage.delete(key: 'accessToken');
     await _storage.delete(key: 'refreshToken');
+  }
+
+  @override
+  Future<bool> isTokenValid() async {
+    final accessToken = await _storage.read(key: 'accessToken');
+    if (accessToken == null) return false;
+
+    try {
+      final response = await _dio.get(
+        'https://api.spotify.com/v1/me',
+        options: dio.Options(
+          headers: {'Authorization': 'Bearer $accessToken'},
+        ),
+      );
+      return response.statusCode == 200;
+    } catch (e) {
+      print('Token validation error: $e');
+      return false;
+    }
   }
 }
